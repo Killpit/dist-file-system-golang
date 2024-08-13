@@ -2,12 +2,23 @@ package main
 
 import (
 	"bytes"
+	"fmt"
 	"testing"
 )
 
+func TestPathTransformFunc(t *testing.T) {
+	key := "momsbestpicture"
+	pathname := CASPathTransformFunc(key)
+	expectedPathName := "//////"
+	fmt.Println(pathname)
+	if pathname != expectedPathName {
+		t.Error(t, "have %s want %", pathname, expectedPathName)
+	}
+}
+
 func TestStore(t *testing.T) {
 	opts := StoreOpts {
-		PathTransformFunc: DefaultPathTransformFunc,
+		PathTransformFunc: CASPathTransformFunc,
 	}
 	s := NewStore(opts)
 
