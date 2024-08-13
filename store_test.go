@@ -2,17 +2,20 @@ package main
 
 import (
 	"bytes"
-	"fmt"
 	"testing"
 )
 
 func TestPathTransformFunc(t *testing.T) {
 	key := "momsbestpicture"
-	pathname := CASPathTransformFunc(key)
-	expectedPathName := "//////"
-	fmt.Println(pathname)
-	if pathname != expectedPathName {
-		t.Error(t, "have %s want %", pathname, expectedPathName)
+	pathKey := CASPathTransformFunc(key)
+	expectedOriginalKey := "//////d41d8cd98f00b204e9800998ecf8427e"
+	expectedPathName := "//////d41d8cd98f00b204e9800998ecf8427e"
+	
+	if pathKey.PathName != expectedPathName {
+		t.Error(t, "have %s want %", pathKey.PathName, expectedPathName)
+	}
+	if pathKey.Original != expectedPathName {
+		t.Error(t, "have %s want %", pathKey.Original, expectedOriginalKey)
 	}
 }
 
@@ -27,5 +30,4 @@ func TestStore(t *testing.T) {
 	if err := s.writeStream("myspecialpicture", data); err != nil {
 		t.Error(err)
 	}
-	
 }
