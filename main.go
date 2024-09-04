@@ -3,6 +3,7 @@ package main
 import (
 	"dist-file-system-golang/p2p"
 	"log"
+	"time"
 )
 
 func main() {
@@ -22,9 +23,12 @@ func main() {
 
 	s := NewFileServer(fileServerOpts)
 
+	go func() {
+		time.Sleep(time.Second * 3)
+		s.Stop()
+	}()
+
 	if err := s.Start(); err != nil {
 		log.Fatal(err)
 	}
-
-	select {}
 }
